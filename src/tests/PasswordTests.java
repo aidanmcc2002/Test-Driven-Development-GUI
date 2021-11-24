@@ -13,13 +13,13 @@ public class PasswordTests {
 
     /* Test to see if the Length Exception is thrown */
     @Test(expected = LengthException.class)
-    public void lengthTest() {
+    public void lengthTest() throws LengthException, DigitException {
         HelloController cls = new HelloController();
         cls.verifyPassword("short");
     }
 
     @Test(expected = LetterException.class)
-    public void letterTest() {
+    public void letterTest() throws DigitException, LengthException {
         HelloController cls = new HelloController();
         cls.verifyPassword("12345678");
     }
