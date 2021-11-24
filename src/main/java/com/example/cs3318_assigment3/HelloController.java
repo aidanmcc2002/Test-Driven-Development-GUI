@@ -28,4 +28,8 @@ public class HelloController {
         errorText.setText(emailString);
         errorText.setText(passwordString);
     }
+
+    public boolean verifyPassword(String password){
+        return false;
+    }
 }
