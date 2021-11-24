@@ -43,8 +43,8 @@ public class HelloController {
 
     public boolean verifyPassword(String password1) throws LengthException, DigitException {
         int length = password1.length();
-        if (length >7){
-                throw new LengthException("Please Ensure Password is 8 or more characters");
+        if (length < 7){
+                throw new LengthException("Please Ensure Password is Longer than 7 Chars");
 
         }
         else if(ifContainsInt(password1, length) == false){

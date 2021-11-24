@@ -13,9 +13,12 @@ public class PasswordTests {
 
     /* Test to see if the Length Exception is thrown */
     @Test(expected = LengthException.class)
-    public void lengthTest() throws LengthException, DigitException {
-        HelloController cls = new HelloController();
-        cls.verifyPassword("short");
+    public void lengthTest() {
+        LengthException thrown = Assertions.assertThrows(LengthException.class,() ->{
+            HelloController cls = new HelloController();
+            cls.verifyPassword("short");
+        },"Please Ensure Password is Longer than 7 Chars");
+        Assertions.assertEquals("Please Ensure Password is Longer than 7 Chars",thrown.getMessage());
     }
 
     @Test(expected = LetterException.class)
@@ -25,19 +28,19 @@ public class PasswordTests {
     }
 
     @Test(expected = DigitException.class)
-    public void digitTest() {
+    public void digitTest() throws DigitException, LengthException {
         HelloController cls = new HelloController();
         cls.verifyPassword("password");
     }
 
     @Test(expected = SpecialCharException.class)
-    public void specialCharTest() {
+    public void specialCharTest() throws DigitException, LengthException {
         HelloController cls = new HelloController();
         cls.verifyPassword("passwo12345");
     }
 
     @Test
-    public void successPassTest(){
+    public void successPassTest() throws DigitException, LengthException {
         HelloController cls = new HelloController();
         Boolean result = cls.verifyPassword("password1234!");
         assertTrue(result);
