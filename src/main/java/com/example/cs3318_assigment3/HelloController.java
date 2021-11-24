@@ -1,5 +1,6 @@
 package com.example.cs3318_assigment3;
 
+import com.example.cs3318_assigment3.Exceptions.SpecialCharException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -7,6 +8,7 @@ import javafx.scene.control.Label;
 import com.example.cs3318_assigment3.Exceptions.LengthException;
 import com.example.cs3318_assigment3.Exceptions.LetterException;
 import com.example.cs3318_assigment3.Exceptions.DigitException;
+import org.apache.commons.lang.StringUtils;
 
 public class HelloController {
 
@@ -41,15 +43,22 @@ public class HelloController {
         return false;
     }
 
-    public boolean verifyPassword(String password1) throws LengthException, DigitException {
+
+    public boolean verifyPassword(String password1) throws LengthException, DigitException, LetterException, SpecialCharException {
         int length = password1.length();
         if (length < 7){
             throw new LengthException("Please Ensure Password is Longer than 7 Chars");
         }
-        else if(ifContainsInt(password1, length) == true){
+        if(!ifContainsInt(password1, length)){
             throw new DigitException("Please Ensure Password Contains a Number");
         }
-        return false;
+        if(!password1.matches(".*[a-z].*")){
+            throw new LetterException("Please Ensure Password Contains a letter");
+        }
+        if(!StringUtils.containsAny(password1,".*[^&@!].*")){
+            throw new SpecialCharException("Please Ensure Password Contains one of these chars ' ^ & @ ! ' ");
+        }
+        return true;
     }
 
 

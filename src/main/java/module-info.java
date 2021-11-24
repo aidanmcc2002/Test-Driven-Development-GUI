@@ -1,6 +1,7 @@
 module com.example.cs3318_assigment3 {
     requires javafx.controls;
     requires javafx.fxml;
+    requires commons.lang;
 
 
     opens com.example.cs3318_assigment3 to javafx.fxml;

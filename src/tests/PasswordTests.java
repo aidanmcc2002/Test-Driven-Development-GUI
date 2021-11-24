@@ -25,28 +25,35 @@ public class PasswordTests {
     public void digitTest(){
         DigitException thrown = Assertions.assertThrows(DigitException.class,() ->{
             HelloController cls = new HelloController();
-            cls.verifyPassword("12345678");
+            cls.verifyPassword("password");
         },"Please Ensure Password Contains a Number");
         Assertions.assertEquals("Please Ensure Password Contains a Number",thrown.getMessage());
 
     }
 
-    @Test(expected = DigitException.class)
-    public void letterTest() throws DigitException, LengthException {
-        HelloController cls = new HelloController();
-        cls.verifyPassword("password");
-    }
+    @Test
+    public void letterTest() {
+        LetterException thrown = Assertions.assertThrows(LetterException.class,() ->{
+            HelloController cls = new HelloController();
+            cls.verifyPassword("12345678");
+        },"Please Ensure Password Contains a letter");
+        Assertions.assertEquals("Please Ensure Password Contains a letter",thrown.getMessage());
 
-    @Test(expected = SpecialCharException.class)
-    public void specialCharTest() throws DigitException, LengthException {
-        HelloController cls = new HelloController();
-        cls.verifyPassword("passwo12345");
     }
 
     @Test
-    public void successPassTest() throws DigitException, LengthException {
+    public void specialCharTest(){
+        SpecialCharException thrown = Assertions.assertThrows(SpecialCharException.class,() ->{
+            HelloController cls = new HelloController();
+            cls.verifyPassword("passwo12345");
+        },"Please Ensure Password Contains one of these chars ' ^ & @ ! ' ");
+        Assertions.assertEquals("Please Ensure Password Contains one of these chars ' ^ & @ ! ' ",thrown.getMessage());
+    }
+
+    @Test
+    public void successPassTest() throws DigitException, LengthException, LetterException, SpecialCharException {
         HelloController cls = new HelloController();
-        Boolean result = cls.verifyPassword("password1234!");
+        Boolean result = cls.verifyPassword("password123*4!");
         assertTrue(result);
     }
 }
