@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PasswordTests {
 
     /* Test to see if the Length Exception is thrown */
-    @Test(expected = LengthException.class)
+    @Test
     public void lengthTest() {
         LengthException thrown = Assertions.assertThrows(LengthException.class,() ->{
             HelloController cls = new HelloController();
@@ -21,14 +21,18 @@ public class PasswordTests {
         Assertions.assertEquals("Please Ensure Password is Longer than 7 Chars",thrown.getMessage());
     }
 
-    @Test(expected = LetterException.class)
-    public void letterTest() throws DigitException, LengthException {
-        HelloController cls = new HelloController();
-        cls.verifyPassword("12345678");
+    @Test
+    public void digitTest(){
+        DigitException thrown = Assertions.assertThrows(DigitException.class,() ->{
+            HelloController cls = new HelloController();
+            cls.verifyPassword("12345678");
+        },"Please Ensure Password Contains a Number");
+        Assertions.assertEquals("Please Ensure Password Contains a Number",thrown.getMessage());
+
     }
 
     @Test(expected = DigitException.class)
-    public void digitTest() throws DigitException, LengthException {
+    public void letterTest() throws DigitException, LengthException {
         HelloController cls = new HelloController();
         cls.verifyPassword("password");
     }

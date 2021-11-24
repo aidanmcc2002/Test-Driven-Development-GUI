@@ -44,10 +44,9 @@ public class HelloController {
     public boolean verifyPassword(String password1) throws LengthException, DigitException {
         int length = password1.length();
         if (length < 7){
-                throw new LengthException("Please Ensure Password is Longer than 7 Chars");
-
+            throw new LengthException("Please Ensure Password is Longer than 7 Chars");
         }
-        else if(ifContainsInt(password1, length) == false){
+        else if(ifContainsInt(password1, length) == true){
             throw new DigitException("Please Ensure Password Contains a Number");
         }
         return false;
