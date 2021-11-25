@@ -1,14 +1,13 @@
 package com.example.cs3318_assigment3;
 
-import com.example.cs3318_assigment3.Exceptions.SpecialCharException;
+import com.example.cs3318_assigment3.Exceptions.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
-import com.example.cs3318_assigment3.Exceptions.LengthException;
-import com.example.cs3318_assigment3.Exceptions.LetterException;
-import com.example.cs3318_assigment3.Exceptions.DigitException;
 import org.apache.commons.lang.StringUtils;
+
+import java.util.regex.Pattern;
 
 public class HelloController {
 
@@ -61,10 +60,26 @@ public class HelloController {
         return true;
     }
 
+    public static boolean isValidEmail(String email)
+    {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
+    }
 
 
-
-    public boolean verifyEmail(String email){
-        return false;
+    public boolean verifyEmail(String email) throws EmailException {
+        if(!isValidEmail(email)){
+            throw new EmailException("Please Ensure Valid Email Inputted");
+        }
+        else{
+            return true;
+        }
     }
 }
