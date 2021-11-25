@@ -1,38 +1,20 @@
 package com.example.cs3318_assigment3;
 
 import com.example.cs3318_assigment3.Exceptions.*;
+import javafx.application.Application;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.apache.commons.lang.StringUtils;
 
+import java.io.IOException;
 import java.util.regex.Pattern;
 
-public class HelloController {
-
-    @FXML
-    private Button button;
-
-    @FXML
-    private Label errorText;
-
-    @FXML
-    private TextField email;
-
-    @FXML
-    private TextField password;
-
-
-    @FXML
-    protected void handleButton1Action()
-    {
-        String emailString = email.getText();
-        String passwordString = password.getText();
-        errorText.setText(emailString);
-        errorText.setText(passwordString);
-    }
-
+public class Presenter {
     private boolean ifContainsInt(String string,Integer n){
         for (int i =0; i < n; i++){
             if (string.charAt(i) >= '0' && string.charAt(i) <= '9') {
@@ -82,4 +64,6 @@ public class HelloController {
             return true;
         }
     }
+
+
 }
