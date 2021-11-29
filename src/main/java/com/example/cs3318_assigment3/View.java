@@ -57,8 +57,4 @@ public class View extends Application {
         presenter.verifyPassword(passwordString,errorText);
     }
 
-    public void setErrorText(String text){
-        errorText.setText(text);
-    }
-
 }

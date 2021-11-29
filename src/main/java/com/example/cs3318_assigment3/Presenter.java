@@ -25,25 +25,22 @@ public class Presenter{
             errorText.setText("Please input something into password field");
             model.setErrorText("Please input something into password field", errorText);
             throw new EmptyFieldException("Please input something into password field");
-        }
-        if (length < 7) {
+        } else if (length < 7) {
             model.setErrorText("Please Ensure Password is Longer than 7 Chars", errorText);
             throw new LengthException("Please Ensure Password is Longer than 7 Chars");
-        }
-        if (!ifContainsInt(password1, length)) {
+        } else if (!ifContainsInt(password1, length)) {
             model.setErrorText("Please Ensure Password Contains a Number", errorText);
             throw new DigitException("Please Ensure Password Contains a Number");
-        }
-        if (!password1.matches(".*[a-z].*")) {
+        } else if (!password1.matches(".*[a-z].*")) {
             model.setErrorText("Please Ensure Password Contains a letter", errorText);
             throw new LetterException("Please Ensure Password Contains a letter");
-        }
-        if (!StringUtils.containsAny(password1, ".*[^&@!].*")) {
+        } else if (!StringUtils.containsAny(password1, ".*[^&@!].*")) {
             model.setErrorText("Please Ensure Password Contains one of these chars ' ^ & @ ! ' ", errorText);
             throw new SpecialCharException("Please Ensure Password Contains one of these chars ' ^ & @ ! ' ");
+        } else {
+            model.setErrorText("Successfully Signed Up", errorText);
+            return true;
         }
-        model.setErrorText("Successfully Signed Up",errorText);
-        return true;
     }
 
     public static boolean isValidEmail(String email) {
@@ -64,13 +61,13 @@ public class Presenter{
             model.setErrorText("Please input something into email field",errorText);
             throw new EmptyFieldException("Please input something into email field");
         }
-        if (!isValidEmail(email)) {
+        else if (!isValidEmail(email)) {
             model.setErrorText("Please Ensure Valid Email Inputted",errorText);
             throw new EmailException("Please Ensure Valid Email Inputted");
-        } else {
+        }
+        else {
             return true;
         }
-
-        }
+    }
 
 }

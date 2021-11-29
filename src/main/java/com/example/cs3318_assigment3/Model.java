@@ -4,10 +4,9 @@ import javafx.scene.control.Label;
 
 public class Model {
     public String setErrorText(String stringy, Label errorText){
-        if (errorText == null) {
-            return stringy;
+        if (errorText != null) {
+            errorText.setText(stringy);
         }
-        errorText.setText(stringy);
         return stringy;
     }
 }
