@@ -38,7 +38,7 @@ public class View extends Application {
     private Button button;
 
     @FXML
-    private Label errorText;
+    public Label errorText;
 
     @FXML
     private TextField email;

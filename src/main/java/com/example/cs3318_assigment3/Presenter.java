@@ -16,8 +16,8 @@ import java.util.regex.Pattern;
 
 public class Presenter {
 
-    private boolean ifContainsInt(String string,Integer n){
-        for (int i =0; i < n; i++){
+    private boolean ifContainsInt(String string, Integer n) {
+        for (int i = 0; i < n; i++) {
             if (string.charAt(i) >= '0' && string.charAt(i) <= '9') {
                 return true;
             }
@@ -26,26 +26,28 @@ public class Presenter {
     }
 
 
-    public boolean verifyPassword(String password1) throws LengthException, DigitException, LetterException, SpecialCharException {
+    public boolean verifyPassword(String password1) throws LengthException, DigitException, LetterException, SpecialCharException, EmptyFieldException {
         int length = password1.length();
-        if (length < 7){
+        if (length == 0) {
+            throw new EmptyFieldException("Please input something into password field");
+        }
+        if (length < 7) {
             throw new LengthException("Please Ensure Password is Longer than 7 Chars");
         }
-        if(!ifContainsInt(password1, length)){
+        if (!ifContainsInt(password1, length)) {
             throw new DigitException("Please Ensure Password Contains a Number");
         }
-        if(!password1.matches(".*[a-z].*")){
+        if (!password1.matches(".*[a-z].*")) {
             throw new LetterException("Please Ensure Password Contains a letter");
         }
-        if(!StringUtils.containsAny(password1,".*[^&@!].*")){
+        if (!StringUtils.containsAny(password1, ".*[^&@!].*")) {
             throw new SpecialCharException("Please Ensure Password Contains one of these chars ' ^ & @ ! ' ");
         }
         return true;
     }
 
-    public static boolean isValidEmail(String email)
-    {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+    public static boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
                 "[a-zA-Z0-9_+&*-]+)*@" +
                 "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
                 "A-Z]{2,7}$";
@@ -57,14 +59,15 @@ public class Presenter {
     }
 
 
-    public boolean verifyEmail(String email) throws EmailException {
-        if(!isValidEmail(email)){
-            throw new EmailException("Please Ensure Valid Email Inputted");
+    public boolean verifyEmail(String email) throws EmailException, EmptyFieldException {
+        if (email.length() == 0) {
+            throw new EmptyFieldException("Please input something into email field");
         }
-        else{
+        if (!isValidEmail(email)) {
+            throw new EmailException("Please Ensure Valid Email Inputted");
+        } else {
             return true;
         }
+
+        }
     }
-
-
-}

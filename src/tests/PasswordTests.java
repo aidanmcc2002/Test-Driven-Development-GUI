@@ -1,9 +1,6 @@
-import com.example.cs3318_assigment3.Exceptions.SpecialCharException;
+import com.example.cs3318_assigment3.Exceptions.*;
 import com.example.cs3318_assigment3.Presenter;
 import org.junit.Test;
-import com.example.cs3318_assigment3.Exceptions.LengthException;
-import com.example.cs3318_assigment3.Exceptions.LetterException;
-import com.example.cs3318_assigment3.Exceptions.DigitException;
 import org.junit.jupiter.api.Assertions;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,7 +9,7 @@ public class PasswordTests {
 
     @Test
     public void fieldTest(){
-        LengthException thrown = Assertions.assertThrows(LengthException.class,() ->{
+        EmptyFieldException thrown = Assertions.assertThrows(EmptyFieldException.class,() ->{
             Presenter cls = new Presenter();
             cls.verifyPassword("");
         },"Please input something into password field");
@@ -58,7 +55,7 @@ public class PasswordTests {
     }
 
     @Test
-    public void successPassTest() throws DigitException, LengthException, LetterException, SpecialCharException {
+    public void successPassTest() throws DigitException, LengthException, LetterException, SpecialCharException, EmptyFieldException {
         Presenter cls = new Presenter();
         Boolean result = cls.verifyPassword("password123*4!");
         assertTrue(result);
