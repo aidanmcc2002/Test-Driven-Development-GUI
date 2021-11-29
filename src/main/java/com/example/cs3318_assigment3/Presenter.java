@@ -1,20 +1,13 @@
 package com.example.cs3318_assigment3;
 
 import com.example.cs3318_assigment3.Exceptions.*;
-import javafx.application.Application;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import org.apache.commons.lang.StringUtils;
 
-import java.io.IOException;
 import java.util.regex.Pattern;
 
-public class Presenter {
+public class Presenter{
+    Model model = new Model();
 
     private boolean ifContainsInt(String string, Integer n) {
         for (int i = 0; i < n; i++) {
@@ -26,23 +19,30 @@ public class Presenter {
     }
 
 
-    public boolean verifyPassword(String password1) throws LengthException, DigitException, LetterException, SpecialCharException, EmptyFieldException {
+    public boolean verifyPassword(String password1, Label errorText) throws LengthException, DigitException, LetterException, SpecialCharException, EmptyFieldException {
         int length = password1.length();
         if (length == 0) {
+            errorText.setText("Please input something into password field");
+            model.setErrorText("Please input something into password field", errorText);
             throw new EmptyFieldException("Please input something into password field");
         }
         if (length < 7) {
+            model.setErrorText("Please Ensure Password is Longer than 7 Chars", errorText);
             throw new LengthException("Please Ensure Password is Longer than 7 Chars");
         }
         if (!ifContainsInt(password1, length)) {
+            model.setErrorText("Please Ensure Password Contains a Number", errorText);
             throw new DigitException("Please Ensure Password Contains a Number");
         }
         if (!password1.matches(".*[a-z].*")) {
+            model.setErrorText("Please Ensure Password Contains a letter", errorText);
             throw new LetterException("Please Ensure Password Contains a letter");
         }
         if (!StringUtils.containsAny(password1, ".*[^&@!].*")) {
+            model.setErrorText("Please Ensure Password Contains one of these chars ' ^ & @ ! ' ", errorText);
             throw new SpecialCharException("Please Ensure Password Contains one of these chars ' ^ & @ ! ' ");
         }
+        model.setErrorText("Successfully Signed Up",errorText);
         return true;
     }
 
@@ -59,15 +59,18 @@ public class Presenter {
     }
 
 
-    public boolean verifyEmail(String email) throws EmailException, EmptyFieldException {
+    public boolean verifyEmail(String email,Label errorText) throws EmailException, EmptyFieldException {
         if (email.length() == 0) {
+            model.setErrorText("Please input something into email field",errorText);
             throw new EmptyFieldException("Please input something into email field");
         }
         if (!isValidEmail(email)) {
+            model.setErrorText("Please Ensure Valid Email Inputted",errorText);
             throw new EmailException("Please Ensure Valid Email Inputted");
         } else {
             return true;
         }
 
         }
-    }
+
+}

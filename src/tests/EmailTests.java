@@ -1,19 +1,18 @@
 import com.example.cs3318_assigment3.Exceptions.EmailException;
 import com.example.cs3318_assigment3.Exceptions.EmptyFieldException;
-import com.example.cs3318_assigment3.Exceptions.LengthException;
-import com.example.cs3318_assigment3.Model;
 import com.example.cs3318_assigment3.Presenter;
-import org.junit.Test;
+import com.example.cs3318_assigment3.View;
 import javafx.scene.control.Label;
+import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
 public class EmailTests {
-
+    private Label label;
     @Test
     public void emailTest() {
         EmailException thrown = Assertions.assertThrows(EmailException.class,() ->{
             Presenter cls = new Presenter();
-            cls.verifyEmail("test");
+            cls.verifyEmail("test", label);
         },"Please Ensure Valid Email Inputted");
         Assertions.assertEquals("Please Ensure Valid Email Inputted",thrown.getMessage());
     }
@@ -22,7 +21,7 @@ public class EmailTests {
     public void emailFieldTest(){
         EmptyFieldException thrown = Assertions.assertThrows(EmptyFieldException.class,() ->{
             Presenter cls = new Presenter();
-            cls.verifyEmail("");
+            cls.verifyEmail("",label);
         },"Please input something into email field");
         Assertions.assertEquals("Please input something into email field",thrown.getMessage());
     }

@@ -38,7 +38,9 @@ public class View extends Application {
     private Button button;
 
     @FXML
-    public Label errorText;
+    private Label errorText;
+
+    public static Label testLabel = new Label();
 
     @FXML
     private TextField email;
@@ -48,12 +50,15 @@ public class View extends Application {
 
 
     @FXML
-    protected void handleButton1Action()
-    {
+    protected void handleButton1Action() throws EmailException, EmptyFieldException, DigitException, LengthException, LetterException, SpecialCharException {
         String emailString = email.getText();
+        presenter.verifyEmail(emailString,errorText);
         String passwordString = password.getText();
-        errorText.setText(emailString);
-        errorText.setText(passwordString);
+        presenter.verifyPassword(passwordString,errorText);
+    }
+
+    public void setErrorText(String text){
+        errorText.setText(text);
     }
 
 }
