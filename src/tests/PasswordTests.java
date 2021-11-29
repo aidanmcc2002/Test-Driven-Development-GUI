@@ -10,6 +10,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PasswordTests {
 
+    @Test
+    public void fieldTest(){
+        LengthException thrown = Assertions.assertThrows(LengthException.class,() ->{
+            Presenter cls = new Presenter();
+            cls.verifyPassword("");
+        },"Please input something into password field");
+        Assertions.assertEquals("Please input something into password field",thrown.getMessage());
+    }
     /* Test to see if the Length Exception is thrown */
     @Test
     public void lengthTest() {
